@@ -5,26 +5,35 @@ function deposit() {
     let percent = + document.getElementById('percent').value;
     let days = + document.getElementById('days').value;
 
-    calculator(start, monthsum, percent, days);
+    if (calculator(start, monthsum, percent, days)){
+        alert(calculator(start, monthsum, percent, days));
+    }
+   else {
+    
+    console.error('NaN');
+
+   }
 }
 
 function calculator(start, monthsum, percent, days) {
     let total = start;
     let percentformonth = percent / 12;
     let everyday = days / 30;
+    let element = document.getElementById("welcome");
+    if (start <= 0 || monthsum < 0 || percent <= 0 && percent <= 100 || days < 0) {
 
-    if (start <= 0 || monthsum < 0 || percent <= 0 || days < 0) {
-        let element = document.getElementById("welcome");
-        element.style.display="block";
+        element.style.display = "block";
         element.innerHTML = "<p>Рассчитать заново!</p>";
-        console.error('NaN');
-        return;
+       // console.error('NaN');
+        return NaN;
     }
+    element.style.display = "none";
     for (i = 1; i < everyday; i++) {
         total += monthsum + (total * percentformonth) / 100;
     }
 
-    alert(Math.ceil(total));
+
+    return Math.ceil(total);;
 }
 
 
